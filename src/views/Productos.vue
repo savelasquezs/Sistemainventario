@@ -20,6 +20,45 @@
       </li>
     </ul>
   </div>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th align="center">Nombre</th>
+          <th align="center">Precio de Compra</th>
+          <th align="center">Precio de Venta</th>
+          <th align="center">Stock</th>
+          <th align="center">Ganacia por Unidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(product, index) in allProducts" :key="index">
+          <td align="center">{{ product.nombre }}</td>
+          <td align="center">{{ product.precioCompra }}</td>
+          <td align="center">{{ product.precioVenta }}</td>
+          <td align="center">{{ product.stock }}</td>
+          <td align="center">{{ product.ganancia }}</td>
+          <td>
+            <Icon
+              class="iconos"
+              icon="bi:trash-fill"
+              color="red"
+              @click="borrarProducto(product.docId)"
+            />
+
+            <Icon
+              icon="material-symbols:edit"
+              color="green"
+              width="24"
+              height="24"
+              class="iconos"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <add-button @click="abrirModal" />
 </template>
@@ -28,7 +67,10 @@
 import comprasIcon from "../components/icons/comprasIcon.vue";
 import addButton from "../components/addButton.vue";
 import { Icon } from "@iconify/vue";
-import { useProductStore } from "../stores/counter";
+import { useProductStore, useUtils } from "../stores/counter";
+import { mapState } from "pinia";
+import { doc, deleteDoc } from "firebase/firestore";
+
 export default {
   components: {
     comprasIcon,
@@ -39,6 +81,13 @@ export default {
     abrirModal() {
       useProductStore().toggleNewProductForm();
     },
+
+    borrarProducto(id) {
+      useUtils().borrarProductoArray(id, "productos");
+    },
+  },
+  computed: {
+    ...mapState(useProductStore, ["allProducts"]),
   },
 };
 </script>

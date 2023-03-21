@@ -21,6 +21,9 @@ export default {
   computed: {
     ...mapState(useProductStore, ["openedNewProduct"]),
   },
+  created() {
+    useProductStore().getProducts();
+  },
 };
 </script>
 
