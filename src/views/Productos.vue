@@ -94,9 +94,14 @@ export default {
   methods: {
     editProduct(id) {
       useProductStore().setCurrentProduct(id);
+      useProductStore().toogleaditting();
+      useProductStore().toggleNewProductForm();
     },
 
     abrirModal() {
+      if (this.editting) {
+        useProductStore().toogleaditting();
+      }
       useProductStore().toggleNewProductForm();
     },
 

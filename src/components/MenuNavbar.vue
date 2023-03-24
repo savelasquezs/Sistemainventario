@@ -6,7 +6,9 @@
     </li>
     <li>
       <pedidoIcon />
-      <h5>Pedidos</h5>
+      <router-link to="/pedidos">
+        <h5>Pedidos</h5>
+      </router-link>
     </li>
     <li>
       <Icon icon="arcticons:debtcalc" width="24" height="24" />
@@ -14,7 +16,9 @@
     </li>
     <li>
       <Icon icon="ph:bag-bold" width="24" height="24" />
-      <h5>Productos</h5>
+      <router-link to="/productos">
+        <h5>Productos</h5>
+      </router-link>
     </li>
   </ul>
 </template>

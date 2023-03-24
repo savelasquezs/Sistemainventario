@@ -1,6 +1,7 @@
 <template>
   <form>
-    <h3 class="mb-5 text-center">Nuevo Producto</h3>
+    <h3 class="mb-5 text-center" v-if="editting">Actualizar Producto</h3>
+    <h3 class="mb-5 text-center" v-else>Nuevo Producto</h3>
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre del producto</label>
       <input
@@ -42,9 +43,25 @@
         @change="onFileSelected"
       />
     </div>
+    <div v-if="imageURL" class="d-flex justify-content-center">
+      <img :src="imageURL" alt="" width="100" />
+    </div>
 
     <div class="button-container d-flex justify-content-between mt-5">
-      <button type="button" class="btn btn-success" @click="guardarProducto">
+      <button
+        type="button"
+        class="btn btn-success"
+        v-if="editting"
+        @click="actualizarProducto(currentProduct.docId)"
+      >
+        Actualizar
+      </button>
+      <button
+        type="button"
+        class="btn btn-success"
+        v-else
+        @click="guardarProducto"
+      >
         Guardar
       </button>
       <button type="button" class="btn btn-danger" @click="cerrarModalProducto">
@@ -56,9 +73,10 @@
 
 <script>
 import { useProductStore, useUtils } from "../stores/counter";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db } from "../firebase/firebaseInit";
+import { mapState } from "pinia";
 export default {
   data() {
     return {
@@ -77,13 +95,19 @@ export default {
     ganaciaActual() {
       return this.precioVenta - this.precioCompra;
     },
+    ...mapState(useProductStore, ["editting", "currentProduct", "allProducts"]),
   },
   methods: {
     cerrarModalProducto() {
       useProductStore().toggleNewProductForm();
+      if (this.editting) {
+        useProductStore().toogleaditting();
+      }
     },
-    onFileSelected(event) {
+    async onFileSelected(event) {
       this.file = event.target.files[0];
+      console.log(this.file);
+      await this.uploadImage();
     },
     async uploadImage() {
       const storage = getStorage();
@@ -109,8 +133,6 @@ export default {
     },
     async guardarProducto() {
       try {
-        await this.uploadImage();
-        console.log(this.imageURL);
         const data = {
           nombre: this.nombre,
           precioCompra: this.precioCompra,
@@ -130,6 +152,39 @@ export default {
         console.log(error);
       }
     },
+    async actualizarProducto(id) {
+      try {
+        const data = {
+          nombre: this.nombre,
+          precioCompra: this.precioCompra,
+          precioVenta: this.precioVenta,
+          stock: this.stock,
+          ganancia: this.ganaciaActual,
+          imageURL: this.imageURL,
+        };
+        const docRef = doc(db, "productos", id);
+        await updateDoc(docRef, data);
+        const index = this.allProducts.findIndex(
+          (product) => product.docId == id
+        );
+        const productoACambiar = this.allProducts.find(
+          (product) => product.docId == id
+        );
+        this.allProducts[index] = { docId: id, ...productoACambiar, ...data };
+        this.cerrarModalProducto();
+        useUtils().abrirAlert("Producto Actualizado exitosamente");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    if (this.editting) {
+      this.nombre = this.currentProduct.nombre;
+      this.precioCompra = this.currentProduct.precioCompra;
+      this.stock = this.currentProduct.stock;
+      this.imageURL = this.currentProduct.imageURL;
+    }
   },
 };
 </script>

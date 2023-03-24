@@ -32,7 +32,7 @@ export default {
     <MenuNavbar />
   </Navbar>
   <div class="contenido">
-    <Productos />
+    <router-view />
   </div>
   <Modal v-if="openedNewProduct">
     <ProductForm v-if="openedNewProduct" />
