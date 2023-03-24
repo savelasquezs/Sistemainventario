@@ -34,7 +34,13 @@
 
     <div class="mb-3">
       <label for="imagen" class="form-label">Selecciona una imagen</label>
-      <input class="form-control" type="file" id="imagen" accept="image/*" />
+      <input
+        class="form-control"
+        type="file"
+        id="imagen"
+        accept="image/*"
+        @change="onFileSelected"
+      />
     </div>
 
     <div class="button-container d-flex justify-content-between mt-5">
@@ -51,6 +57,7 @@
 <script>
 import { useProductStore, useUtils } from "../stores/counter";
 import { addDoc, collection } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db } from "../firebase/firebaseInit";
 export default {
   data() {
@@ -58,6 +65,8 @@ export default {
       nombre: "",
       precioCompra: 0,
       stock: 0,
+      file: "",
+      imageURL: "",
     };
   },
   components: {},
@@ -73,18 +82,46 @@ export default {
     cerrarModalProducto() {
       useProductStore().toggleNewProductForm();
     },
+    onFileSelected(event) {
+      this.file = event.target.files[0];
+    },
+    async uploadImage() {
+      const storage = getStorage();
+      console.log(this.file);
+      const productRef = ref(storage, this.file.name);
+
+      // Upload image file to Firebase Storage
+      const snapshot = await uploadBytes(productRef, this.file).then(
+        (snapshot) => {
+          console.log("Cargado exitosamente!");
+        }
+      );
+
+      // // Store download URL in Firestore
+      await getDownloadURL(productRef).then((url) => {
+        this.imageURL = url;
+        console.log(this.imageURL);
+      });
+      // `url` is the download URL for 'images/stars.jpg'
+
+      // // Clear file input
+      // this.file = null;
+    },
     async guardarProducto() {
       try {
+        await this.uploadImage();
+        console.log(this.imageURL);
         const data = {
           nombre: this.nombre,
           precioCompra: this.precioCompra,
           precioVenta: this.precioVenta,
           stock: this.stock,
           ganancia: this.ganaciaActual,
+          imageURL: this.imageURL,
         };
         const collRef = collection(db, "productos");
         const docRef = await addDoc(collRef, data);
-        console.log(docRef.id);
+        console.log(data);
         useProductStore().guardarUno({ docId: docRef.id, ...data });
         useProductStore().mostrarArray();
         this.cerrarModalProducto();

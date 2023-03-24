@@ -9,11 +9,22 @@ export const useProductStore = defineStore('product', {
 		return {
 			openedNewProduct: false,
 			allProducts: [],
+			editting: null,
+			currentProduct: [],
 		};
 	},
 	actions: {
+		toogleaditting() {
+			this.editting = !this.editting;
+		},
 		toggleNewProductForm() {
 			this.openedNewProduct = !this.openedNewProduct;
+		},
+		setCurrentProduct(id) {
+			this.currentProduct = this.allProducts.find(
+				(product) => product.docId == id
+			);
+			console.log(this.currentProduct);
 		},
 		async getProducts() {
 			const collRef = collection(db, 'productos');
@@ -51,6 +62,13 @@ export const useUtils = defineStore('utils', {
 				title: titulo,
 				text: mensaje,
 			});
+		},
+		numeroAMoneda(cantidad) {
+			const dato = cantidad.toLocaleString('es-CO', {
+				style: 'currency',
+				currency: 'COP',
+			});
+			return dato;
 		},
 		async borrarProductoArray(id, colleccion) {
 			Swal.fire({

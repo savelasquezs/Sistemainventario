@@ -34,11 +34,24 @@
       </thead>
       <tbody>
         <tr v-for="(product, index) in allProducts" :key="index">
-          <td align="center">{{ product.nombre }}</td>
-          <td align="center">{{ product.precioCompra }}</td>
-          <td align="center">{{ product.precioVenta }}</td>
-          <td align="center">{{ product.stock }}</td>
-          <td align="center">{{ product.ganancia }}</td>
+          <td align="center">
+            <div class="d-flex">
+              <img
+                :src="product.imageURL"
+                alt=""
+                width="35"
+                class="mx-5"
+                height="35"
+              />
+              <h6>
+                {{ product.nombre }}
+              </h6>
+            </div>
+          </td>
+          <td align="center" v-text="moneda(product.precioCompra)"></td>
+          <td align="center">{{ moneda(product.precioVenta) }}</td>
+          <td align="center">{{ product.stock }} Un</td>
+          <td align="center">{{ moneda(product.ganancia) }}</td>
           <td>
             <Icon
               class="iconos"
@@ -53,6 +66,7 @@
               width="24"
               height="24"
               class="iconos"
+              @click="editProduct(product.docId)"
             />
           </td>
         </tr>
@@ -78,6 +92,10 @@ export default {
     addButton,
   },
   methods: {
+    editProduct(id) {
+      useProductStore().setCurrentProduct(id);
+    },
+
     abrirModal() {
       useProductStore().toggleNewProductForm();
     },
@@ -85,9 +103,16 @@ export default {
     borrarProducto(id) {
       useUtils().borrarProductoArray(id, "productos");
     },
+    moneda(cantidad) {
+      const dato = cantidad.toLocaleString("es-CO", {
+        style: "currency",
+        currency: "COP",
+      });
+      return dato;
+    },
   },
   computed: {
-    ...mapState(useProductStore, ["allProducts"]),
+    ...mapState(useProductStore, ["allProducts", "editting"]),
   },
 };
 </script>
