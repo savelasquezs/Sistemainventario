@@ -75,7 +75,7 @@
 import { useProductStore, useUtils } from "../stores/counter";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { db } from "../firebase/firebaseInit";
+import { db, storage } from "../firebase/firebaseInit";
 import { mapState } from "pinia";
 export default {
   data() {
@@ -110,7 +110,6 @@ export default {
       await this.uploadImage();
     },
     async uploadImage() {
-      const storage = getStorage();
       console.log(this.file);
       const productRef = ref(storage, this.file.name);
 

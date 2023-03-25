@@ -3,6 +3,13 @@ import { defineStore } from 'pinia';
 import Swal from 'sweetalert2';
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseInit';
+import { auth } from '../firebase/firebaseInit';
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signOut,
+} from 'firebase/auth';
+import router from '../router';
 
 export const useProductStore = defineStore('product', {
 	state: () => {
@@ -53,9 +60,94 @@ export const useProductStore = defineStore('product', {
 
 export const useUtils = defineStore('utils', {
 	state: () => {
-		return {};
+		return {
+			user: null,
+		};
 	},
 	actions: {
+		fetchUser() {
+			auth.onAuthStateChanged(async (user) => {
+				if (user == null) {
+					this.clearUser();
+				} else {
+					this.setUser(user);
+					if (router.isReady() && router.currentRoute.value.path == '/login') {
+						router.push('/');
+					}
+				}
+			});
+		},
+		setUser(user) {
+			this.user = user;
+		},
+		clearUser() {
+			this.user = null;
+		},
+		async login(datosUsuario) {
+			const { email, password, password2, name, lastName } = datosUsuario;
+			try {
+				await signInWithEmailAndPassword(auth, email, password);
+			} catch (error) {
+				switch (error.code) {
+					case 'auth/user-not-found':
+						this.abrirAlert('No encontramos este usuario', 'error');
+						break;
+					case 'auth/wrong-password':
+						this.abrirAlert(
+							'La contraseña no coincide, intenta de nuevo',
+							'error'
+						);
+						break;
+					default:
+						this.abrirAlert(`Algo salió mal ${error}`, 'error');
+						break;
+				}
+				return;
+			}
+			this.setUser(auth.currentUser);
+			router.push('/');
+		},
+		async register(datosUsuario) {
+			const { email, password, password2 } = datosUsuario;
+			try {
+				if (password == password2) {
+					await createUserWithEmailAndPassword(auth, email, password);
+				} else {
+					this.abrirAlert(
+						'La contraseña no coincide, intenta de nuevo',
+						'error'
+					);
+				}
+			} catch (error) {
+				switch (error.code) {
+					case 'auth/email-already-in-use':
+						this.abrirAlert('Este correo ya esta registrado', 'error');
+						break;
+					case 'auth/invalid-email':
+						this.abrirAlert('Debes ingresar un correo valido', 'error');
+						break;
+					case 'auth/operation-not-allowed':
+						this.abrirAlert('Operación no permitida', 'error');
+						break;
+					case 'auth/weak-password':
+						this.abrirAlert(
+							'Ingresa una contraseña mas fuerte, esta no sirve',
+							'error'
+						);
+						break;
+					default:
+						this.abrirAlert(`Algo salió mal ${error}`, 'error');
+				}
+				return;
+			}
+			this.setUser(auth.currentUser);
+			router.push('/');
+		},
+		async logout() {
+			await signOut(auth);
+			this.clearUser();
+			router.push('/login');
+		},
 		abrirAlert(mensaje, icono = 'success', titulo = '') {
 			Swal.fire({
 				icon: icono,

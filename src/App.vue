@@ -5,7 +5,8 @@ import Productos from "./views/Productos.vue";
 import ProductForm from "./components/productForm.vue";
 import Modal from "./components/Modal.vue";
 import { mapState } from "pinia";
-import { useProductStore } from "./stores/counter.js";
+import { useProductStore, useUtils } from "./stores/counter.js";
+import { auth } from "./firebase/firebaseInit";
 
 export default {
   components: {
@@ -16,22 +17,30 @@ export default {
     Modal,
   },
   data() {
-    return {};
+    return {
+      store: useUtils(),
+      userstate: null,
+    };
   },
   computed: {
     ...mapState(useProductStore, ["openedNewProduct"]),
+    ...mapState(useUtils, ["user"]),
   },
   created() {
     useProductStore().getProducts();
   },
+  onBeforeMount() {
+    this.store.fetchUser();
+  },
+  watch: {},
 };
 </script>
 
 <template>
-  <Navbar>
+  <Navbar v-if="user">
     <MenuNavbar />
   </Navbar>
-  <div class="contenido">
+  <div :class="user ? 'contenido' : ''">
     <router-view />
   </div>
   <Modal v-if="openedNewProduct">

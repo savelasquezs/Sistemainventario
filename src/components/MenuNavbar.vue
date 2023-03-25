@@ -2,7 +2,9 @@
   <ul class="menuContainer">
     <li>
       <dashboardIcon />
-      <h5>Dashboard</h5>
+      <router-link to="/">
+        <h5>Dashboard</h5>
+      </router-link>
     </li>
     <li>
       <pedidoIcon />
