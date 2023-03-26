@@ -27,10 +27,8 @@ export default {
     ...mapState(useUtils, ["user"]),
   },
   created() {
-    useProductStore().getProducts();
-  },
-  onBeforeMount() {
     this.store.fetchUser();
+    useProductStore().getProducts();
   },
   watch: {},
 };

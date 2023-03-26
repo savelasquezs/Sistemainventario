@@ -37,18 +37,28 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	console.log(auth.currentUser);
 	if (to.path == '/register' && auth.currentUser) {
+		console.log(to.path);
+		console.log('Usuario autenticado');
+
 		next('/');
-		return;
+	}
+	if (to.path == '/login' && auth.currentUser) {
+		console.log(to.path);
+
+		console.log('Usuario autenticado');
+
+		next('/');
 	}
 	if (
 		to.matched.some((record) => record.meta.requiresAuth) &&
 		!auth.currentUser
 	) {
-		next('/register');
-		return;
+		console.log('requires auth');
+		next('/login');
 	}
+	console.log(to.path);
+	console.log(auth.currentUser);
 	next();
 });
 

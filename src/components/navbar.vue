@@ -10,6 +10,7 @@
     <div class="contenido d-grid align-content-between h-75">
       <slot />
       <div>
+        <h6 class="float-end">{{ user.displayName }}</h6>
         <span role="button" class="float-end text-danger pb-3" @click="logout"
           ><Icon icon="circum:logout" />Cerrar Sesión
         </span>
@@ -21,13 +22,25 @@
 <script>
 import { Icon } from "@iconify/vue";
 import { useUtils } from "../stores/counter";
+import { mapState } from "pinia";
 export default {
+  data() {
+    return {};
+  },
   components: {
     Icon,
   },
   methods: {
     logout() {
       useUtils().logout();
+    },
+  },
+  computed: {
+    ...mapState(useUtils, ["user"]),
+  },
+  watch: {
+    user() {
+      return;
     },
   },
 };

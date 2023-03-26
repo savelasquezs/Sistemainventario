@@ -1,6 +1,6 @@
 <template>
   <!-- Section: Design Block -->
-  <section class="background-radial-gradient overflow-hidden mainSection">
+  <section class="background-radial-gradient mainSection">
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
       <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
@@ -98,7 +98,7 @@
                 <div class="form-outline mb-4">
                   <input
                     type="password"
-                    id="form3Example4"
+                    id="form3Example5"
                     class="form-control"
                     placeholder="Confirma Tu Contraseña"
                     v-model="register_form.password2"
@@ -158,6 +158,8 @@ export default {
 <style scoped>
 section.mainSection {
   max-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 img.logo {
   border-radius: 50%;

@@ -31,7 +31,6 @@ export const useProductStore = defineStore('product', {
 			this.currentProduct = this.allProducts.find(
 				(product) => product.docId == id
 			);
-			console.log(this.currentProduct);
 		},
 		async getProducts() {
 			const collRef = collection(db, 'productos');
@@ -42,14 +41,11 @@ export const useProductStore = defineStore('product', {
 					this.allProducts.push({ docId: doc.id, ...doc.data() });
 				}
 			});
-			console.log(this.allProducts);
 		},
 		guardarUno(producto) {
 			this.allProducts.push(producto);
 		},
-		mostrarArray() {
-			console.log(this.allProducts);
-		},
+		mostrarArray() {},
 		borrarProducto(id) {
 			this.allProducts = this.allProducts.filter(
 				(producto) => producto.docId !== id
@@ -67,11 +63,16 @@ export const useUtils = defineStore('utils', {
 	actions: {
 		fetchUser() {
 			auth.onAuthStateChanged(async (user) => {
+				console.log(user);
 				if (user == null) {
 					this.clearUser();
 				} else {
 					this.setUser(user);
-					if (router.isReady() && router.currentRoute.value.path == '/login') {
+					if (
+						router.isReady() &&
+						(router.currentRoute.value.path == '/login' ||
+							router.currentRoute.value.path == '/register')
+					) {
 						router.push('/');
 					}
 				}
@@ -108,10 +109,14 @@ export const useUtils = defineStore('utils', {
 			router.push('/');
 		},
 		async register(datosUsuario) {
-			const { email, password, password2 } = datosUsuario;
+			const { email, password, password2, name, lastName } = datosUsuario;
 			try {
 				if (password == password2) {
-					await createUserWithEmailAndPassword(auth, email, password);
+					await createUserWithEmailAndPassword(auth, email, password).then(
+						(cred) => {
+							cred.user.displayName = `${name} ${lastName}`;
+						}
+					);
 				} else {
 					this.abrirAlert(
 						'La contraseña no coincide, intenta de nuevo',

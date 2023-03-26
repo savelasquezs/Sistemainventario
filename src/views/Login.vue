@@ -115,6 +115,7 @@ export default {
 section.mainSection {
   max-height: 100vh;
   height: 100vh;
+  overflow: scroll;
 }
 img.logo {
   border-radius: 50%;
