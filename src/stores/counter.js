@@ -8,6 +8,7 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signOut,
+	updateProfile,
 } from 'firebase/auth';
 import router from '../router';
 
@@ -63,10 +64,12 @@ export const useUtils = defineStore('utils', {
 	actions: {
 		fetchUser() {
 			auth.onAuthStateChanged(async (user) => {
-				console.log(user);
 				if (user == null) {
 					this.clearUser();
 				} else {
+					user.getIdTokenResult().then((idTokenResult) => {
+						this.user.admin = idTokenResult.claims.admin;
+					});
 					this.setUser(user);
 					if (
 						router.isReady() &&
@@ -79,13 +82,13 @@ export const useUtils = defineStore('utils', {
 			});
 		},
 		setUser(user) {
-			this.user = user;
+			this.user = { ...user };
 		},
 		clearUser() {
 			this.user = null;
 		},
 		async login(datosUsuario) {
-			const { email, password, password2, name, lastName } = datosUsuario;
+			const { email, password } = datosUsuario;
 			try {
 				await signInWithEmailAndPassword(auth, email, password);
 			} catch (error) {
@@ -105,7 +108,11 @@ export const useUtils = defineStore('utils', {
 				}
 				return;
 			}
-			this.setUser(auth.currentUser);
+			user.getIdTokenResult().then((idTokenResult) => {
+				this.user.admin = idTokenResult.claims.admin;
+				console.log(this.user.admin);
+			});
+			this.setUser(user);
 			router.push('/');
 		},
 		async register(datosUsuario) {
@@ -114,7 +121,11 @@ export const useUtils = defineStore('utils', {
 				if (password == password2) {
 					await createUserWithEmailAndPassword(auth, email, password).then(
 						(cred) => {
-							cred.user.displayName = `${name} ${lastName}`;
+							updateProfile(cred.user, {
+								displayName: `${name} ${lastName}`,
+							});
+							this.setUser(cred.user);
+							return;
 						}
 					);
 				} else {
@@ -145,8 +156,6 @@ export const useUtils = defineStore('utils', {
 				}
 				return;
 			}
-			this.setUser(auth.currentUser);
-			router.push('/');
 		},
 		async logout() {
 			await signOut(auth);

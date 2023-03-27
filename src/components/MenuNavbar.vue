@@ -1,6 +1,6 @@
 <template>
   <ul class="menuContainer">
-    <li>
+    <li v-if="user.admin">
       <dashboardIcon />
       <router-link to="/">
         <h5>Dashboard</h5>
@@ -29,11 +29,16 @@
 import dashboardIcon from "./icons/dashboardIcon.vue";
 import pedidoIcon from "./icons/pedidoIcon.vue";
 import { Icon } from "@iconify/vue";
+import { mapState } from "pinia";
+import { useUtils } from "../stores/counter";
 export default {
   components: {
     dashboardIcon,
     pedidoIcon,
     Icon,
+  },
+  computed: {
+    ...mapState(useUtils, ["user"]),
   },
 };
 </script>

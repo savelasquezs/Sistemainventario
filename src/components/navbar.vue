@@ -10,7 +10,7 @@
     <div class="contenido d-grid align-content-between h-75">
       <slot />
       <div>
-        <h6 class="float-end">{{ user.displayName }}</h6>
+        <h6 class="float-end" v-text="user.displayName"></h6>
         <span role="button" class="float-end text-danger pb-3" @click="logout"
           ><Icon icon="circum:logout" />Cerrar Sesión
         </span>

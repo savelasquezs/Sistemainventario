@@ -36,19 +36,20 @@ const router = createRouter({
 	],
 });
 
+const userIsAdmin = async () => {
+	let esCierto = await auth.currentUser.getIdTokenResult();
+	let claims = esCierto.claims.admin;
+	return claims;
+};
+
 router.beforeEach((to, from, next) => {
 	if (to.path == '/register' && auth.currentUser) {
-		console.log(to.path);
-		console.log('Usuario autenticado');
-
 		next('/');
+		return;
 	}
-	if (to.path == '/login' && auth.currentUser) {
-		console.log(to.path);
-
-		console.log('Usuario autenticado');
-
+	if (to.path == '/login' && auth.currentUser && from.path !== '/register') {
 		next('/');
+		return;
 	}
 	if (
 		to.matched.some((record) => record.meta.requiresAuth) &&
@@ -56,10 +57,12 @@ router.beforeEach((to, from, next) => {
 	) {
 		console.log('requires auth');
 		next('/login');
+		return;
 	}
-	console.log(to.path);
-	console.log(auth.currentUser);
 	next();
+	(async () => {
+		console.log(await userIsAdmin());
+	})();
 });
 
 export default router;

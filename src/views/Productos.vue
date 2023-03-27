@@ -53,12 +53,13 @@
           <td align="center">{{ product.stock }} Un</td>
           <td align="center">{{ moneda(product.ganancia) }}</td>
           <td>
-            <Icon
+            <!-- <Icon
               class="iconos"
               icon="bi:trash-fill"
               color="red"
               @click="borrarProducto(product.docId)"
-            />
+            /> -->
+            <BotonBorrar />
 
             <Icon
               icon="material-symbols:edit"
@@ -80,6 +81,7 @@
 <script>
 import comprasIcon from "../components/icons/comprasIcon.vue";
 import addButton from "../components/addButton.vue";
+import BotonBorrar from "../components/BotonBorrar.vue";
 import { Icon } from "@iconify/vue";
 import { useProductStore, useUtils } from "../stores/counter";
 import { mapState } from "pinia";
@@ -90,6 +92,7 @@ export default {
     comprasIcon,
     Icon,
     addButton,
+    BotonBorrar,
   },
   methods: {
     editProduct(id) {
