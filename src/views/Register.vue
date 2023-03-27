@@ -6,7 +6,7 @@
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
           <div class="">
             <img
-              src="../assets/img/WhatsApp Image 2023-03-17 at 11.10.00.jpeg"
+              src="../assets/img/toxiFondoBlanco.jpeg"
               alt="logo"
               width="250px"
               class="justify-self-center logo"
