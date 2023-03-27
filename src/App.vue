@@ -6,7 +6,6 @@ import ProductForm from "./components/productForm.vue";
 import Modal from "./components/Modal.vue";
 import { mapState } from "pinia";
 import { useProductStore, useUtils } from "./stores/counter.js";
-import { auth } from "./firebase/firebaseInit";
 
 export default {
   components: {
