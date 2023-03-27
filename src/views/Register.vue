@@ -1,8 +1,8 @@
 <template>
   <!-- Section: Design Block -->
   <section class="background-radial-gradient mainSection">
-    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-      <div class="row gx-lg-5 align-items-center mb-5">
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start">
+      <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
           <div class="">
             <img
@@ -156,11 +156,6 @@ export default {
 </script>
 
 <style scoped>
-section.mainSection {
-  max-height: 100vh;
-  height: 100vh;
-  overflow: hidden;
-}
 img.logo {
   border-radius: 50%;
   opacity: 0.8;

@@ -12,7 +12,7 @@
           <h5>Order #240</h5>
           <h6>17:04</h6>
         </div>
-        <div class="container d-flex justify-content-between">
+        <div class="container gride justify-content-between">
           <h6>Numero de productos: 4</h6>
           <div class="d-flex justify-content-evenly w-50">
             <p>$30.000</p>
