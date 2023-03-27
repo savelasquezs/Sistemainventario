@@ -7,16 +7,16 @@
     </ul>
 
     <ul>
-      <li class="container">
-        <div class="container d-flex justify-content-between w-100">
+      <li class="gasto">
+        <div class="gasto-head">
           <h5>Order #240</h5>
           <h6>17:04</h6>
         </div>
-        <div class="container gride justify-content-between">
+        <div class="gasto-head">
           <h6>Numero de productos: 4</h6>
-          <div class="d-flex justify-content-evenly w-50">
+          <div class="gasto-detail">
             <p>$30.000</p>
-            <button class="btn btn-success buttonPagar">Pagar</button>
+            <button class="buttonPagar">Pagar</button>
           </div>
         </div>
       </li>
@@ -31,6 +31,46 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.gasto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 10px;
+  gap: 20px;
+  height: 100px;
+  border-radius: 5px;
+
+  /* Dark Blue */
+
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  &:hover {
+    background: #003049;
+    color: #ffff;
+  }
+}
+.buttonPagar {
+  background: #36cd1d;
+  border-radius: 30px;
+  padding: 5px 20px;
+  border: none;
+}
+.gasto-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 20px;
+}
+.gasto-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+  width: 100%;
+}
 * {
   margin: 0;
   padding: 0;
