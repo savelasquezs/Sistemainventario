@@ -5,32 +5,53 @@
       <li>Pendiente</li>
       <li>Finalizado</li>
     </ul>
-
-    <ul>
-      <li class="gasto">
-        <div class="gasto-head">
-          <h5>Order #240</h5>
-          <h6>17:04</h6>
-        </div>
-        <div class="gasto-head">
-          <h6>Numero de productos: 4</h6>
-          <div class="gasto-detail">
-            <p>$30.000</p>
-            <button class="buttonPagar">Pagar</button>
+    <div class="contenido">
+      <ul>
+        <li class="gasto">
+          <div class="gasto-head">
+            <h5>Order #240</h5>
+            <h6>17:04</h6>
           </div>
-        </div>
-      </li>
-    </ul>
+          <div class="gasto-head">
+            <h6>Numero de productos: 4</h6>
+            <div class="gasto-detail">
+              <p>$30.000</p>
+              <button class="buttonPagar" @click="abrirDetalle">Pagar</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <OrderDetailVue v-if="edittingVentas" />
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "pinia";
+import OrderDetailVue from "../components/OrderDetail.vue";
+import { useProductStore, useVentas } from "../stores/counter";
 export default {
-  selected: false,
+  components: {
+    OrderDetailVue,
+  },
+  computed: {
+    ...mapState(useVentas, ["edittingVentas"]),
+  },
+  methods: {
+    abrirDetalle() {
+      useVentas().toogleEditVentas();
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+.contenido {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 50px;
+}
+
 .gasto {
   display: flex;
   flex-direction: column;
@@ -39,6 +60,7 @@ export default {
   gap: 20px;
   height: 100px;
   border-radius: 5px;
+  min-width: 50vw;
 
   /* Dark Blue */
 

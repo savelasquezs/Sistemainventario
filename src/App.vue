@@ -45,8 +45,12 @@ export default {
   </Modal>
 </template>
 
-<style scoped>
+<style scoped >
+@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
 .contenido {
   margin-left: 150px;
+}
+* {
+  font-family: "Acme", sans-serif;
 }
 </style>

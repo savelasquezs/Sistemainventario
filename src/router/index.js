@@ -12,6 +12,13 @@ const router = createRouter({
 			},
 		},
 		{
+			path: '/ventas',
+			component: () => import('../views/vender.vue'),
+			meta: {
+				requiresAuth: true,
+			},
+		},
+		{
 			path: '/pedidos',
 			component: () => import('../views/Ventas.vue'),
 			meta: {
