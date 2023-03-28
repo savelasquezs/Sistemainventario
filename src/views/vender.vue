@@ -1,10 +1,12 @@
 <template>
     <div>28 Octubre 2021 | 17:30</div>
-    <div class="container">
+    <div class="cont">
         <ul class="compras-ul">
             <li>Compras</li>
         </ul>
+    </div>
 
+    <div class="cotainer">
         <ul>
             <li class="productos">
                 <div class="vender-producto">
@@ -15,7 +17,7 @@
                         <h5>Gorra Flex-Fit</h5>
                         <h6>$4.29</h6>
                     </div>
-                    <div class="remove-add">
+                    <div class="nombre-producto">
                         <Icon icon="ic:baseline-remove-circle" width="30" height="30" />
                         <h4>1</h4>
                         <Icon icon="material-symbols:add-circle-rounded" width="30" height="30" />
@@ -36,16 +38,25 @@ import { Icon } from '@iconify/vue';
 </script>
 
 <style scoped lang="scss">
+
+
 .compras-ul{
-    padding: 20px;
-    margin: 10px;
+    display: flex;
     cursor: pointer;
+    list-style-type: none;
 }
 
 .productos {
     display: flex;
 }
 
+.nombre-producto{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
 .vender-producto{
     img {
         width: 140px;
@@ -57,7 +68,7 @@ import { Icon } from '@iconify/vue';
     display: grid;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 
 .remove-add {
@@ -69,5 +80,9 @@ import { Icon } from '@iconify/vue';
     gap: 30px;
 }
 
-
+.nombre-producto {
+    .h6 {
+        text-align: right;
+    }
+}
 </style>
