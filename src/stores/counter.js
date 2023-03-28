@@ -27,6 +27,7 @@ export const useProductStore = defineStore('product', {
 		},
 		toggleNewProductForm() {
 			this.openedNewProduct = !this.openedNewProduct;
+			useUtils().toggleModal();
 		},
 		setCurrentProduct(id) {
 			this.currentProduct = this.allProducts.find(
@@ -59,9 +60,13 @@ export const useUtils = defineStore('utils', {
 	state: () => {
 		return {
 			user: null,
+			opennedModal: null,
 		};
 	},
 	actions: {
+		toggleModal() {
+			this.opennedModal = !this.opennedModal;
+		},
 		fetchUser() {
 			auth.onAuthStateChanged(async (user) => {
 				if (user == null) {
@@ -209,11 +214,16 @@ export const useVentas = defineStore('useVentas', {
 	state: () => {
 		return {
 			edittingVentas: null,
+			openedPedidoForm: null,
 		};
 	},
 	actions: {
 		toogleEditVentas() {
 			this.edittingVentas = !this.edittingVentas;
+		},
+		tooglePedidoForm() {
+			useUtils().toggleModal();
+			this.openedPedidoForm = !this.openedPedidoForm;
 		},
 	},
 });

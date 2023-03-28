@@ -10,7 +10,7 @@
 </template>
 <style scoped>
 .add-container {
-  position: absolute;
+  position: fixed;
   right: 20px;
   bottom: 20px;
   cursor: pointer;
