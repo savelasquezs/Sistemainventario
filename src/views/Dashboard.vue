@@ -33,7 +33,7 @@
         <button class="ano">Este año</button>
       </div>
       <div class="icon-head">
-        <img src="https://firebasestorage.googleapis.com/v0/b/inventario-b661a.appspot.com/o/icons8-kimono-96.png?alt=media&token=7715a748-795f-4614-861b-be0f6f6c944b" alt=""> Kimono
+        <img src="https://firebasestorage.googleapis.com/v0/b/inventario-b661a.appspot.com/o/icons8-kimono-96.png?alt=media&token=7715a748-795f-4614-861b-be0f6f6c944b" alt=""> <h1 class="ki">Kimono</h1>
         
       </div>
       <div class="estadisticas">
@@ -82,19 +82,44 @@ export default {
 .fic{
   position: absolute;
   left: 400px;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
 }
 .boton{
   padding: 30px;
-  border-radius:10px;
+  display: flex;
+  gap: 15px;
+  
+  
 }
 .boton :nth-child(1){
   width: 180px;
   border-radius: 10px;
+  border: none;
+  color: rgb(14, 16, 130);
+ 
 }
 .boton :nth-child(2){
   width: 180px;
   border-radius: 10px;
+  border: none;
+  color: rgb(14, 16, 130);
+}
+.boton :nth-child(3){
+  width: 180px;
+  border-radius: 10px;
+  border: none;
+  color: rgb(14, 16, 130);
+}
+.icon-head{
+  padding: 20px;
+  width: 98px;
+  height: 130px;
+  display: flex;
+  gap: 20px;
+}
+.ki{
+  font-weight: 100;
+  font-size:25px;
 }
 </style>
