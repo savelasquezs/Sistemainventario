@@ -13,6 +13,12 @@
       </router-link>
     </li>
     <li>
+      <pedidoIcon />
+      <router-link to="/ventas">
+        <h5>Vender</h5>
+      </router-link>
+    </li>
+    <li>
       <Icon icon="arcticons:debtcalc" width="24" height="24" />
       <h5>Gastos</h5>
     </li>
