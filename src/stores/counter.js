@@ -204,3 +204,16 @@ export const useUtils = defineStore('utils', {
 		},
 	},
 });
+
+export const useVentas = defineStore('useVentas', {
+	state: () => {
+		return {
+			edittingVentas: null,
+		};
+	},
+	actions: {
+		toogleEditVentas() {
+			this.edittingVentas = !this.edittingVentas;
+		},
+	},
+});
