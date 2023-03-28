@@ -24,10 +24,31 @@
         Convertir a Admin
       </button>
     </form>
+    <div class="dash-es" > 
+      Estadisticas promedio 
+      <Icon class="fic" icon="grommet-icons:configure" />
+      <div class="boton">
+        <button class="semana">Esta semana</button>
+        <button class="mes">Este mes </button>
+        <button class="ano">Este año</button>
+      </div>
+      <div class="icon-head">
+        <img src="https://firebasestorage.googleapis.com/v0/b/inventario-b661a.appspot.com/o/icons8-kimono-96.png?alt=media&token=7715a748-795f-4614-861b-be0f6f6c944b" alt=""> Kimono
+        
+      </div>
+      <div class="estadisticas">
+        <img src="../assets/img/th.jpg" alt="">
+        <div>Camisas</div>
+        <div>Kimono</div>
+        <div>Tenis</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+
+import { Icon } from '@iconify/vue';
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase/firebaseInit";
 export default {
@@ -35,6 +56,9 @@ export default {
     return {
       emailToAdmin: "",
     };
+  },
+  components:{
+    Icon
   },
   methods: {
     agregarAAdmins() {
@@ -49,4 +73,28 @@ export default {
 </script>
 
 <style scoped>
+.dash-es{
+  font-size:25px;
+  font-weight: bold;
+  position: absolute;
+  top:200px; left: 400px;
+}
+.fic{
+  position: absolute;
+  left: 400px;
+  width: 35px;
+  height: 35px;
+}
+.boton{
+  padding: 30px;
+  border-radius:10px;
+}
+.boton :nth-child(1){
+  width: 180px;
+  border-radius: 10px;
+}
+.boton :nth-child(2){
+  width: 180px;
+  border-radius: 10px;
+}
 </style>
