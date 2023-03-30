@@ -5,7 +5,8 @@ import Productos from "./views/Productos.vue";
 import ProductForm from "./components/productForm.vue";
 import Modal from "./components/Modal.vue";
 import { mapState } from "pinia";
-import { useProductStore, useUtils } from "./stores/counter.js";
+import { useProductStore, useUtils, useVentas } from "./stores/counter.js";
+import PedidoForm from "./components/pedidoForm.vue";
 
 export default {
   components: {
@@ -14,6 +15,7 @@ export default {
     Productos,
     ProductForm,
     Modal,
+    PedidoForm,
   },
   data() {
     return {
@@ -23,7 +25,8 @@ export default {
   },
   computed: {
     ...mapState(useProductStore, ["openedNewProduct"]),
-    ...mapState(useUtils, ["user"]),
+    ...mapState(useUtils, ["user", "opennedModal"]),
+    ...mapState(useVentas, ["openedPedidoForm"]),
   },
   created() {
     this.store.fetchUser();
@@ -40,8 +43,9 @@ export default {
   <div :class="user ? 'contenido' : ''">
     <router-view />
   </div>
-  <Modal v-if="openedNewProduct">
+  <Modal v-if="opennedModal">
     <ProductForm v-if="openedNewProduct" />
+    <PedidoForm v-else-if="openedPedidoForm" />
   </Modal>
 </template>
 
