@@ -59,7 +59,7 @@
               color="red"
               @click="borrarProducto(product.docId)"
             /> -->
-            <BotonBorrar />
+            <BotonBorrar @click="borrarProducto(product.docId)" />
 
             <Icon
               icon="material-symbols:edit"
