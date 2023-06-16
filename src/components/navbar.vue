@@ -1,3 +1,6 @@
+<!--
+En este fragmento de código se define un componente Vue que representa una barra lateral. Aquí están las principales partes del componente:
+-->
 <template>
   <div class="sidebar">
     <div class="img-container h-25">
@@ -8,6 +11,7 @@
     </div>
 
     <div class="contenido d-grid align-content-between h-75">
+      <!--slot: Esta directiva se utiliza para insertar el contenido adicional dentro de la barra lateral-->
       <slot />
       <div>
         <h6 class="float-end" v-text="user.displayName"></h6>
@@ -56,5 +60,5 @@ export default {
     width: 130px;
   }
 }
-</style>>
+</style>
 

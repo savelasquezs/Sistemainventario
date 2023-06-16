@@ -1,3 +1,4 @@
+<!-- Define la estructura del componente. El menú se representa como una lista desordenada (<ul>) con varios elementos de lista (<li>)-->
 <template>
   <ul class="menuContainer">
     <li v-if="user.admin">
@@ -30,7 +31,7 @@
     </li>
   </ul>
 </template>
-
+<!--En este fragmento de código se importan los componentes dashboardIcon y pedidoIcon desde archivos externos. También se importa el componente Icon de la biblioteca @iconify/vue-->
 <script>
 import dashboardIcon from "./icons/dashboardIcon.vue";
 import pedidoIcon from "./icons/pedidoIcon.vue";
@@ -48,7 +49,7 @@ export default {
   },
 };
 </script>
-
+<!--contiene los estilo css del script-->
 <style scoped>
 ul {
   display: grid;

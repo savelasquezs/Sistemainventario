@@ -1,3 +1,4 @@
+<!--Define la estructura del componente-->
 <template>
   <div class="add-container">
     <Icon
@@ -8,6 +9,7 @@
     />
   </div>
 </template>
+<!--:style scoped Contiene estilos CSS específicos del componente-->
 <style scoped>
 .add-container {
   position: fixed;
@@ -16,6 +18,7 @@
   cursor: pointer;
 }
 </style>
+<!--Contiene la lógica del componente-->
 <script>
 import { Icon } from "@iconify/vue";
 export default {

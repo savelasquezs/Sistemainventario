@@ -1,4 +1,6 @@
+<!--Este código representa un fragmento de un componente de Vue.js que renderiza un ícono en forma de un archivo o documento-->
 <template>
+  <!--Define el elemento SVG que contiene los elementos del ícono.-->
   <svg
     width="20"
     height="21"
@@ -8,6 +10,7 @@
   >
     <g clip-path="url(#clip0_445_1494)">
       <g clip-path="url(#clip1_445_1494)">
+        <!--Define un camino SVG. Cada <path> representa una parte del ícono-->
         <path
           d="M18.5391 13.3056C18.0089 14.5593 17.1797 15.6641 16.124 16.5233C15.0682 17.3826 13.818 17.9701 12.4828 18.2346C11.1475 18.499 9.76775 18.4324 8.46419 18.0404C7.16062 17.6485 5.97292 16.9431 5.00491 15.9861C4.03691 15.0291 3.31808 13.8495 2.91126 12.5505C2.50444 11.2515 2.42203 9.87265 2.67123 8.53444C2.92043 7.19623 3.49364 5.93943 4.34077 4.87393C5.18789 3.80843 6.28313 2.96667 7.53073 2.42224"
           stroke="black"
@@ -33,6 +36,7 @@
           transform="translate(0 0.5)"
         />
       </clipPath>
+      <!--: Define una máscara de recorte para recortar partes del ícono.-->
       <clipPath id="clip1_445_1494">
         <rect
           width="19"

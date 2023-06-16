@@ -1,4 +1,5 @@
 <template>
+  <!-- Define el elemento SVG que contiene los elementos del ícono.-->
   <svg
     width="21"
     height="20"
@@ -7,6 +8,7 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     <g clip-path="url(#clip0_445_1517)">
+      <!-- Define un camino SVG. Cada <path> representa una parte del ícono.-->
       <path
         d="M2.73022 2.68176L8.62189 16.8234L10.7136 10.6651L16.8719 8.57343L2.73022 2.68176Z"
         stroke="white"
@@ -23,6 +25,7 @@
       />
     </g>
     <defs>
+      <!--Define un bloque de definiciones SVG.-->
       <clipPath id="clip0_445_1517">
         <rect
           width="20"

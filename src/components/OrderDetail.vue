@@ -1,3 +1,4 @@
+<!-- En este template se encuentra toda la estructura del render de pedidos-->
 <template>
   <div class="detail-container">
     <div class="">
@@ -36,7 +37,8 @@
     </div>
   </div>
 </template>
-
+<!--// Se importan las dependencias necesarias, como la librería de iconos "@iconify/vue" y los módulos "mapState" de las stores "counter" (en este caso, "useVentas" y "useProductStore").
+-->
 <script>
 import { Icon } from "@iconify/vue";
 import { mapState } from "pinia";
@@ -45,18 +47,20 @@ export default {
   components: {
     Icon,
   },
+  //Define un método llamado "closeDetails" que llama a la función "toogleEditVentas" de la store "useVentas" cuando se activa.
   methods: {
     closeDetails() {
       useVentas().toogleEditVentas();
     },
   },
+  //Utiliza el módulo "mapState" para mapear la propiedad "edittingVentas" de la store "useVentas" y la propiedad "allProducts" de la store "useProductStore" como propiedades computadas del componente.
   computed: {
     ...mapState(useVentas, ["edittingVentas"]),
     ...mapState(useProductStore, ["allProducts"]),
   },
 };
 </script>
-
+<!--Aquí se definen los estilos adicionales para el componente-->
 <style scoped lang="scss">
 .tableContainer {
   max-height: 400px;

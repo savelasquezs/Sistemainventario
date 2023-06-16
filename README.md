@@ -88,5 +88,5 @@ https://toxiferate.netlify.app/login
 Estas son las personas que actualmente contribuyen en el proyecto, no dudes en contactarnos para resolver cualquier duda e inquietud o puedes dejar tu pull request para que revisemos los cambios que nos propongas.
 
 - [@savelasquezs](https://github.com/savelasquezs)
-- [@sebastiaqui]()
+- [@sebastiaqui](https://github.com/sebastiaqui)
 

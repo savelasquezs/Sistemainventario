@@ -1,4 +1,6 @@
+
 <template>
+  <!--Aqui se define un formulario para la insercion de nuevos datos-->
   <form>
     <h3 class="mb-5 text-center" v-if="editting">Actualizar Producto</h3>
     <h3 class="mb-5 text-center" v-else>Nuevo Producto</h3>
@@ -32,7 +34,7 @@
         v-model="stock"
       />
     </div>
-
+      <!--se debe seleccionar una imagen y esta  se renderizara-->
     <div class="mb-3">
       <label for="imagen" class="form-label">Selecciona una imagen</label>
       <input
@@ -70,13 +72,15 @@
     </div>
   </form>
 </template>
-
+<!-- En este script se encuentran las importaciones del modulo con sus respectivas funciones-->
 <script>
 import { useProductStore, useUtils } from "../stores/counter";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db, storage } from "../firebase/firebaseInit";
 import { mapState } from "pinia";
+//data() es una función que devuelve un objeto con las propiedades de datos utilizadas en el componente.
+//Las propiedades incluyen nombre, precioCompra, stock, file e imageURL, inicializadas con valores predeterminados.
 export default {
   data() {
     return {
@@ -88,6 +92,7 @@ export default {
     };
   },
   components: {},
+  //precioVenta es una propiedad computada que calcula el valor de venta en función del precioCompra.
   computed: {
     precioVenta() {
       return Math.round((this.precioCompra * 1.3) / 1000) * 1000;
@@ -97,7 +102,9 @@ export default {
     },
     ...mapState(useProductStore, ["editting", "currentProduct", "allProducts"]),
   },
+  //cerrarModalProducto es un método que se llama para cerrar el modal de producto. También realiza ciertas acciones según la condición editting.
   methods: {
+    //guardarProducto es un método asíncrono que guarda un nuevo producto en la base de datos de Firestore utilizando la función addDoc.
     cerrarModalProducto() {
       useProductStore().toggleNewProductForm();
       if (this.editting) {
@@ -130,6 +137,7 @@ export default {
       // // Clear file input
       // this.file = null;
     },
+    // es un método asíncrono que guarda un nuevo producto en la base de datos de Firestore
     async guardarProducto() {
       try {
         const data = {
@@ -151,6 +159,7 @@ export default {
         console.log(error);
       }
     },
+    //es un método asíncrono que actualiza un producto existente en la base de datos de Firestore 
     async actualizarProducto(id) {
       try {
         const data = {
@@ -177,6 +186,7 @@ export default {
       }
     },
   },
+  //El hook created se ejecuta cuando se crea el componente. 
   created() {
     if (this.editting) {
       this.nombre = this.currentProduct.nombre;

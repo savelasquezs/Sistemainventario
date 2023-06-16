@@ -1,3 +1,4 @@
+<!--Contiene un contenedor principal con la clase "wrapper", que ocupa toda la pantalla y tiene un fondo semitransparente.-->
 <template>
   <div class="wrapper">
     <div class="modales">
@@ -11,7 +12,7 @@
 <script>
 export default {};
 </script>
-
+<!-- El bloque de estilo está definido en SCSS (Sass) y está limitado al ámbito del componente ("scoped"). -->
 <style scoped lang="scss">
 .wrapper {
   position: fixed;
