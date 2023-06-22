@@ -1,17 +1,27 @@
+//ref: Importa la función ref de la biblioteca Vue, que se utiliza para crear una referencia reactiva a un valor.
 import { ref, computed } from 'vue';
+//defineStore: Importa la función defineStore de la biblioteca Pinia, que se utiliza para definir una tienda de Vuex en una aplicación Vue.
 import { defineStore } from 'pinia';
+//Swal: Importa la biblioteca SweetAlert2, que se utiliza para mostrar ventanas emergentes con estilo y personalizables en el navegador.
 import Swal from 'sweetalert2';
+//collection, getDocs, doc y deleteDoc: Importa varias funciones de la biblioteca Firebase Firestore para interactuar con la base de datos Firestore de Firebase.
 import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+//db: Importa la instancia de la base de datos Firestore inicializada en el archivo '../firebase/firebaseInit'.
 import { db } from '../firebase/firebaseInit';
+//auth: Importa la instancia de autenticación de Firebase inicializada en el archivo '../firebase/firebaseInit'.
 import { auth } from '../firebase/firebaseInit';
+//createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut y updateProfile: Importa varias funciones de la biblioteca Firebase Authentication para realizar operaciones relacionadas con la autenticación de usuarios.
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signOut,
 	updateProfile,
 } from 'firebase/auth';
+//router: Importa la instancia del enrutador de Vue Router, que se utiliza para navegar entre las diferentes rutas de la aplicación.
 import router from '../router';
 
+//useProductStore: Nombre de la instancia de la tienda.
+// defineStore: Función utilizada para definir una tienda en Pinia. Recibe dos argumentos: el nombre de la tienda y un objeto que define el estado y las acciones de la tienda.
 export const useProductStore = defineStore('product', {
 	state: () => {
 		return {
@@ -21,6 +31,7 @@ export const useProductStore = defineStore('product', {
 			currentProduct: [],
 		};
 	},
+	//actions: Un objeto que define las acciones (métodos) de la tienda
 	actions: {
 		toogleaditting() {
 			this.editting = !this.editting;
@@ -37,7 +48,7 @@ export const useProductStore = defineStore('product', {
 		async getProducts() {
 			const collRef = collection(db, 'productos');
 			const todosProductos = await getDocs(collRef);
-
+			// Esta tienda se llama product y tiene un estado con propiedades como openedNewProduct, allProducts, editting y currentProduct.
 			todosProductos.forEach((doc) => {
 				if (!this.allProducts.some((product) => product.docId == doc.id)) {
 					this.allProducts.push({ docId: doc.id, ...doc.data() });
@@ -55,7 +66,9 @@ export const useProductStore = defineStore('product', {
 		},
 	},
 });
-
+// Esta tienda se llama utils y tiene un estado con propiedades como user y opennedModal.
+// Esta tienda se llama utils y tiene un estado con propiedades como user y opennedModal.
+// actions: Aquí se definen las acciones (métodos) de la tienda useUtils que manipulan el estado de useUtils.
 export const useUtils = defineStore('utils', {
 	state: () => {
 		return {
@@ -112,6 +125,7 @@ export const useUtils = defineStore('utils', {
 						break;
 				}
 				return;
+				// Cada acción en ambas tiendas realiza operaciones específicas en el estado utilizando this para acceder a las propiedades y modificarlas.
 			}
 			user.getIdTokenResult().then((idTokenResult) => {
 				this.user.admin = idTokenResult.claims.admin;
@@ -174,6 +188,8 @@ export const useUtils = defineStore('utils', {
 				text: mensaje,
 			});
 		},
+		
+// La función numeroAMoneda definida en la tienda useUtils se utiliza para formatear una cantidad numérica como un valor monetario en la moneda colombiana (COP)
 		numeroAMoneda(cantidad) {
 			const dato = cantidad.toLocaleString('es-CO', {
 				style: 'currency',
@@ -181,6 +197,7 @@ export const useUtils = defineStore('utils', {
 			});
 			return dato;
 		},
+		// La acción borrarProductoArray definida en la tienda useUtils se encarga de mostrar un cuadro de diálogo de confirmación utilizando SweetAlert2 (Swal.fire
 		async borrarProductoArray(id, colleccion) {
 			Swal.fire({
 				title: 'Estas seguro de borrar el elemento?',
@@ -209,7 +226,8 @@ export const useUtils = defineStore('utils', {
 		},
 	},
 });
-
+// Esta tienda se llama useVentas y tiene un estado con propiedades como edittingVentas y openedPedidoForm.
+// actions: Aquí se definen las acciones (métodos) de la tienda useVentas que manipulan el estado de useVentas
 export const useVentas = defineStore('useVentas', {
 	state: () => {
 		return {

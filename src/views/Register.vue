@@ -1,5 +1,5 @@
 <template>
-  <!-- Section: Design Block -->
+  <!-- seccion de diseño del bloque  -->
   <section class="background-radial-gradient mainSection">
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start">
       <div class="row gx-lg-5 align-items-center">

@@ -4,6 +4,7 @@
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
       <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+          //este es un div que contiene una imagen
           <div class="">
             <img
               src="../assets/img/toxiFondoBlanco.jpeg"
@@ -12,6 +13,7 @@
               class="justify-self-center logo"
             />
           </div>
+          //un h1 con algunos estilos
           <h1
             class="my-5 display-5 fw-bold ls-tight"
             style="color: hsl(218, 81%, 95%)"
@@ -38,7 +40,7 @@
               <form>
                 <!-- 2 column grid layout with text inputs for the first and last names -->
 
-                <!-- Email input -->
+                <!-- Aqui el fragmento de codigo con el formulario -->
                 <div class="form-outline mb-4">
                   <input
                     type="email"
@@ -49,7 +51,7 @@
                   />
                 </div>
 
-                <!-- Password input -->
+                <!-- contraseña  -->
                 <div class="form-outline mb-4">
                   <input
                     type="password"
@@ -60,7 +62,7 @@
                   />
                 </div>
 
-                <!-- Submit button -->
+                <!-- boton de enviar -->
 
                 <button
                   type="submit"
@@ -70,7 +72,7 @@
                   Inicia Sesión
                 </button>
 
-                <!-- login buttons -->
+                <!-- botones de inicio de sesion -->
               </form>
             </div>
             <div class="pb-3 px-3">
@@ -93,6 +95,7 @@
 </template>
 
 <script>
+// aqui se importan algunas rutas
 import router from "../router/index.js";
 import { useUtils } from "../stores/counter.js";
 
@@ -111,6 +114,7 @@ export default {
 };
 </script>
 
+//aqui la definicion de algunos estilos 
 <style scoped>
 section.mainSection {
   max-height: 100vh;
